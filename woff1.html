@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>WOFF Volunteer Report</title>
+    <script>
+        var WOFF_ID = "ehlfKAk_nqdOyBoCHTPr1Q";
+    </script>
+    <script charset="utf-8" src="https://static.worksmobile.net/static/wm/woff/edge/3.6/sdk.js"></script>
+    <script src="https://iwaohig.github.io/woff-suzuvc/woffFormHandler.js"></script>
+    <link rel="stylesheet" href="https://iwaohig.github.io/woff-suzuvc/style.css">
+</head>
+<body>
+<h1>Volunteer Report Form</h1>
+
+<!-- 日: 既定で今日の日付 -->
+<label for="dateInput">日:</label>
+<input type="date" id="dateInput" name="date" required>
+
+<!-- ユーザー名（表示名） -->
+<label for="displayNameInput">ユーザー名:</label>
+<input type="text" id="displayNameInput" name="displayName" placeholder="ユーザー名" required readonly>
+
+<!-- ユーザーID（hidden） -->
+<input type="hidden" id="userIdInput" name="userId">
+
+<!-- 実ボランティア数 -->
+<label for="actualVolunteers">実ボランティア数:</label>
+<input type="number" id="actualVolunteers" name="actualVolunteers" required>
+
+<!-- 延べボランティア数 -->
+<label for="totalVolunteers">延べボランティア数:</label>
+<input type="number" id="totalVolunteers" name="totalVolunteers" required>
+
+<!-- マッチング件数 -->
+<label for="matchingCount">マッチング件数:</label>
+<input type="number" id="matchingCount" name="matchingCount" required>
+
+<!-- 完了件数 -->
+<label for="completedCount">完了件数:</label>
+<input type="number" id="completedCount" name="completedCount" required>
+
+<!-- 継続件数 -->
+<label for="continuationCount">継続件数:</label>
+<input type="number" id="continuationCount" name="continuationCount" required>
+
+<button onclick="submitForm()">送信</button>
+
+<script>
+    // 今日の日付を取得してフォーマットする関数
+    function getTodayFormatted() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = (today.getMonth() + 1).toString().padStart(2, '0'); // 月は0から始まるため、+1しています
+        const day = today.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    // 日付入力フィールドに今日の日付を設定
+    document.getElementById("dateInput").value = getTodayFormatted();
+</script>
+</body>
+</html>
