@@ -39,20 +39,24 @@ function getProfileAndFillForm() {
 }
 
 // 新たにアクセストークンを取得してフォームに設定する関数
+// アクセストークンを取得してフォームに設定する関数の修正版
 function getAccessTokenAndSetToForm() {
-    woff.getAccessToken()
-        .then(token => {
-            // アクセストークンをフォームに設定するための隠しフィールドを作成
-            const tokenField = document.createElement('input');
-            tokenField.setAttribute('type', 'hidden');
-            tokenField.setAttribute('name', 'accessToken');
-            tokenField.setAttribute('value', token);
-            // フォームに隠しフィールドを追加
-            document.getElementById("myForm").appendChild(tokenField);
-        })
-        .catch(err => {
-            console.error("アクセストークンの取得に失敗しました:", err);
-        });
+    // 仮定: woff.getAccessToken()が直接トークンを返す場合
+    const token = woff.getAccessToken();
+    if (token) {
+        setAccessTokenToForm(token);
+    } else {
+        console.error("アクセストークンの取得に失敗しました");
+    }
+}
+
+// アクセストークンをフォームに設定する処理を分離
+function setAccessTokenToForm(token) {
+    const tokenField = document.createElement('input');
+    tokenField.setAttribute('type', 'hidden');
+    tokenField.setAttribute('name', 'accessToken');
+    tokenField.setAttribute('value', token);
+    document.getElementById("myForm").appendChild(tokenField);
 }
 
 function submitForm() {
