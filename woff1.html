@@ -14,39 +14,42 @@
 </head>
 <body>
 <h1>Volunteer Report Form</h1>
+<form id="myForm">
+    <!-- 日: 既定で今日の日付 -->
+    <label for="dateInput">日:</label>
+    <input type="date" id="dateInput" name="date" required>
 
-<!-- 日: 既定で今日の日付 -->
-<label for="dateInput">日:</label>
-<input type="date" id="dateInput" name="date" required>
+    <!-- ユーザー名（表示名） -->
+    <label for="displayNameInput">ユーザー名:</label>
+    <input type="text" id="displayNameInput" name="displayName" placeholder="ユーザー名" required readonly>
 
-<!-- ユーザー名（表示名） -->
-<label for="displayNameInput">ユーザー名:</label>
-<input type="text" id="displayNameInput" name="displayName" placeholder="ユーザー名" required readonly>
+    <!-- ユーザーID（hidden） -->
+    <input type="hidden" id="userIdInput" name="userId">
 
-<!-- ユーザーID（hidden） -->
-<input type="hidden" id="userIdInput" name="userId">
+    <!-- 実ボランティア数 -->
+    <label for="actualVolunteers">実ボランティア数:</label>
+    <input type="number" id="actualVolunteers" name="actualVolunteers" required>
 
-<!-- 実ボランティア数 -->
-<label for="actualVolunteers">実ボランティア数:</label>
-<input type="number" id="actualVolunteers" name="actualVolunteers" required>
+    <!-- 延べボランティア数 -->
+    <label for="totalVolunteers">延べボランティア数:</label>
+    <input type="number" id="totalVolunteers" name="totalVolunteers" required>
 
-<!-- 延べボランティア数 -->
-<label for="totalVolunteers">延べボランティア数:</label>
-<input type="number" id="totalVolunteers" name="totalVolunteers" required>
+    <!-- マッチング件数 -->
+    <label for="matchingCount">マッチング件数:</label>
+    <input type="number" id="matchingCount" name="matchingCount" required>
 
-<!-- マッチング件数 -->
-<label for="matchingCount">マッチング件数:</label>
-<input type="number" id="matchingCount" name="matchingCount" required>
+    <!-- 完了件数 -->
+    <label for="completedCount">完了件数:</label>
+    <input type="number" id="completedCount" name="completedCount" required>
 
-<!-- 完了件数 -->
-<label for="completedCount">完了件数:</label>
-<input type="number" id="completedCount" name="completedCount" required>
+    <!-- 継続件数 -->
+    <label for="continuationCount">継続件数:</label>
+    <input type="number" id="continuationCount" name="continuationCount" required>
 
-<!-- 継続件数 -->
-<label for="continuationCount">継続件数:</label>
-<input type="number" id="continuationCount" name="continuationCount" required>
+    <!-- アクセストークン（送信時にJavaScriptで追加される） -->
 
-<button onclick="submitForm()">送信</button>
+    <button type="button" onclick="submitForm()">送信</button>
+</form>
 
 <script>
     // 今日の日付を取得してフォーマットする関数
