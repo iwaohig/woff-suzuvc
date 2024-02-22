@@ -1,5 +1,3 @@
-// woffFormHandler.js
-
 document.addEventListener("DOMContentLoaded", function() {
     initializeWoffApp();
 });
@@ -20,6 +18,8 @@ function initializeWoffApp() {
                 });
             } else {
                 getProfileAndFillForm();
+                // プロファイル情報の取得後、アクセストークンも取得してフォームに設定
+                getAccessTokenAndSetToForm();
             }
         })
         .catch(err => {
@@ -38,24 +38,40 @@ function getProfileAndFillForm() {
         });
 }
 
+// 新たにアクセストークンを取得してフォームに設定する関数
+function getAccessTokenAndSetToForm() {
+    woff.getAccessToken()
+        .then(token => {
+            // アクセストークンをフォームに設定するための隠しフィールドを作成
+            const tokenField = document.createElement('input');
+            tokenField.setAttribute('type', 'hidden');
+            tokenField.setAttribute('name', 'accessToken');
+            tokenField.setAttribute('value', token);
+            // フォームに隠しフィールドを追加
+            document.getElementById("myForm").appendChild(tokenField);
+        })
+        .catch(err => {
+            console.error("アクセストークンの取得に失敗しました:", err);
+        });
+}
+
 function submitForm() {
-    const formData = {
-        date: document.getElementById("dateInput").value,
-        displayName: document.getElementById("displayNameInput").value,
-        userId: document.getElementById("userIdInput").value,
-        actualVolunteers: document.getElementById("actualVolunteers").value,
-        totalVolunteers: document.getElementById("totalVolunteers").value,
-        matchingCount: document.getElementById("matchingCount").value,
-        completedCount: document.getElementById("completedCount").value,
-        continuationCount: document.getElementById("continuationCount").value
-    };
+    // フォーム要素の取得
+    const formElement = document.getElementById("myForm");
+    // FormDataオブジェクトの作成
+    const formData = new FormData(formElement);
+
+    // フォームデータをJSONに変換
+    const object = {};
+    formData.forEach((value, key) => object[key] = value);
+    const json = JSON.stringify(object);
 
     fetch('https://prod-29.japaneast.logic.azure.com:443/workflows/aaaccedf9ba34275bd6617242c212bf0/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=2t-RAIoeztyj2b7Lcsw_WTzCawFgoscpHj2nO9aMqWc', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: json
     })
     .then(response => {
         if (!response.ok) {
